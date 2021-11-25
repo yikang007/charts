@@ -1,7 +1,7 @@
 <template>
 	<div class="container">
 		<div class="series-box">
-			<div class="title">柱状图系列</div>
+			<div class="title">柱状图系列2</div>
 			<!--基础柱状图-->
 			<div id="column1" class="chart"></div>
 			<!--堆叠柱状图-->
