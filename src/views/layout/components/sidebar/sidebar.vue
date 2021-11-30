@@ -27,6 +27,9 @@
                     }, {
                         label: "demo2",
                         path: '/demo2',
+                    }, {
+                        label: "demo3",
+                        path: '/demo3',
                     }],
                 }]
             }

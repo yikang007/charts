@@ -238,7 +238,7 @@ export function barLineChart (chart, chartData) {
 		dataArr.push({
 			name: obj.name,
 			type: 'line',
-			symbol: 'circle',// å®žå¿ƒåœ†
+			symbol: 'circle',// 实心圆
 			symbolSize: 12,
 			itemStyle: {
 				color: {
@@ -611,6 +611,147 @@ export function ladderLineChart (chart, chartData) {
 	chart.setOption(option);
 }
 
+
+
+/**
+ * 延长折线图
+ * @param chart：echart容器
+ * 			data： 折线图数据
+ */
+export function extendLineChart (chart, chartData) {
+	let dataArr = [];
+	for (let i = 0; i < chartData.seriesData.length; i++) {
+		let obj = chartData.seriesData[i];
+		if (obj.name) {
+			dataArr.push({
+				name: obj.name,
+				type: 'line',
+				symbol: 'circle',// 实心圆
+				symbolSize: 12,
+				itemStyle: {
+					color: {
+						type: 'radial',
+						colorStops: [
+							{
+								offset: 0,
+								color: colorArr[i],
+							},
+							{
+								offset: 0.5,
+								color: colorArr[i],
+							},
+							{
+								offset: 0.5,
+								color: 'transparent',
+							},
+							{
+								offset: 1,
+								color: 'transparent',
+							},
+						],
+					},
+					borderColor: colorArr[i],
+					borderWidth: 1,
+				},
+				lineStyle: {
+					color: colorArr[i],
+					width: 2,
+				},
+				data: obj.data,
+				markLine: {
+					symbol: "none",
+					label: {
+						show: false,
+					},
+					lineStyle: {
+						type: "solid",
+						color: "#0C5DAB",
+						width: 4,
+					},
+					data: [
+						{
+							xAxis: '2014',
+						},
+					],
+				},
+			})
+		} else {
+			dataArr.push({
+				type: "line",
+				symbolSize: 10,
+				symbol: "none",
+				lineStyle: {
+					color: "#999",
+				},
+				data: obj.data,
+			})
+		}
+	}
+	let option = {
+		color: colorArr,
+		grid: {
+			left: 20,
+			right: 20,
+			bottom: 40,
+			top: 50,
+			containLabel: true
+		},
+		legend: {
+			icon: 'circle',
+			right: 'center',
+			top: 0,
+			itemWidth: 20,
+			itemHeight: 20,
+			itemGap: 35,
+			textStyle: {
+				color: "#fff"
+			},
+		},
+		tooltip: {
+			trigger: 'axis'
+		},
+		xAxis: {
+			type: 'category',
+			data: chartData.xAxisData,
+			axisTick: {
+				show: false,
+			},
+			axisLine: {
+				lineStyle: {
+					color: 'rgba(255,255,255,0.2)'
+				}
+			},
+			axisLabel: {
+				textStyle: {
+					color: 'rgba(255,255,255,.7)'
+				}
+			}
+		},
+		yAxis: {
+			type: 'value',
+			axisTick: {
+				show: false,
+			},
+			axisLine: {
+				show: false,
+			},
+			splitLine: {
+				show: true,
+				lineStyle: {
+					type: 'dotted',
+					color: 'rgba(255,255,255,0.1)'
+				}
+			},
+			axisLabel: {
+				textStyle: {
+					color: 'rgba(255,255,255,.7)'
+				}
+			}
+		},
+		series: dataArr
+	}
+	chart.setOption(option);
+}
 
 // echarts图表文字自适应
 function fontSize (size) {
